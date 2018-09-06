@@ -1,0 +1,78 @@
+#. Description of the plugin/theme
+msgid "Displays performance monitor, such as the Microsoft Windows Task Manager on WordPress."
+msgstr "WordPress上にMicrosoft Windowsのタスクマネージャーのようなパフォーマンスモニタを表示します。"
+
+###
+# page-base
+##
+msgid "Monitor"
+msgstr "モニター"
+
+msgid "Setting"
+msgstr "設定"
+
+
+###
+# page-monitor
+###
+msgid "%% Utilization, %s seconds"
+msgstr "%s 秒間の使用率 (%%)"
+
+
+###
+# page-setting
+###
+msgid "Data collection interval:"
+msgstr "データ取得間隔："
+
+msgid "sec."
+msgstr "秒"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Please enter an integer of 1 or more in the data collection interval."
+msgstr "データ取得間隔には1以上の整数を入力してください。"
+
+msgid "Has been updated."
+msgstr "更新しました。"
+
+
+###
+# addon/cpu
+###
+msgid "CPU Usage Rate"
+msgstr "CPU使用率"
+
+msgid "Can't access to '/proc/stat' ."
+msgstr "/proc/statにアクセスできません。"
+
+msgid "Failed to acquire CPU usage rate."
+msgstr "CPU使用率の取得に失敗しました。"
+
+
+###
+# addon/memory
+###
+msgid "Memory Usage Rate"
+msgstr "メモリ使用率"
+
+msgid "Failed to execute the 'free' command."
+msgstr "freeコマンドの実行に失敗しました。"
+
+msgid "Failed to acquire Memory usage rate."
+msgstr "メモリ使用率の取得に失敗しました。"
+
+
+###
+# addon/disk
+###
+msgid "Disk Usage Rate (/)"
+msgstr "ディスク使用率(/)"
+
+msgid "Failed to execute the 'df' command."
+msgstr "dfコマンドの実行に失敗しました。"
+
+msgid "The output of the 'df' command is an unexpected format."
+msgstr "dfコマンドの出力が想定外のフォーマットです。"
+
