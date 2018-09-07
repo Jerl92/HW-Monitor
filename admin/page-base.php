@@ -1,14 +1,17 @@
+<?php
+$hwm_url = menu_page_url( 'hw-monitor/hw-monitor.php', 0 );
+?>
 <div class="wrap">
-    <h1>PM HW Monitor</h1>
+    <h1>HW Monitor</h1>
 	<?php settings_errors(); ?>
     <h2 class="nav-tab-wrapper">
-        <a href="?page=pm-hw-monitor%2Fplugin.php&amp;tab=monitor"
+        <a href="<?php echo esc_url( add_query_arg( array( 'tab' => 'monitor' ), $hwm_url ) ); ?>"
            class="nav-tab <?php echo ( $this->view->active_tab === 'monitor' ) ? 'nav-tab-active' : ''; ?>">
-			<?php _e( 'Monitor', 'pm-hw-monitor' ); ?>
+			<?php _e( 'Monitor', 'hw-monitor' ); ?>
         </a>
-        <a href="?page=pm-hw-monitor%2Fplugin.php&amp;tab=setting"
+        <a href="<?php echo esc_url( add_query_arg( array( 'tab' => 'setting' ), $hwm_url ) ); ?>"
            class="nav-tab <?php echo ( $this->view->active_tab === 'setting' ) ? 'nav-tab-active' : ''; ?>">
-			<?php _e( 'Setting', 'pm-hw-monitor' ); ?>
+			<?php _e( 'Setting', 'hw-monitor' ); ?>
         </a>
     </h2>
     <div>

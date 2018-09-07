@@ -1,0 +1,14 @@
+{
+  "name": "hw-monitor-admin",
+  "version": "1.0.0",
+  "description": "HW Monitor Admin page",
+  "main": "js/hwm.js",
+  "repository": "https://git.fwhy.app/yosuke/pm-hw-monitor.git",
+  "author": "Yosuke Nakatsukasa <yosuke_nakatsukasa@pressman.ne.jp>",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "node-sass --output-style compressed css/hwm.scss css/hwm.min.css && uglifyjs js/hwm.js -c --source-map -o js/hwm.min.js",
+    "scss:build": "node-sass --output-style compressed css/hwm.scss css/hwm.min.css",
+    "js:build": "uglifyjs js/hwm.js -c --source-map -o js/hwm.min.js"
+  }
+}

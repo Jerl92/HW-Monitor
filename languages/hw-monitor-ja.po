@@ -2,6 +2,9 @@
 msgid "Displays performance monitor, such as the Microsoft Windows Task Manager on WordPress."
 msgstr "WordPress上にMicrosoft Windowsのタスクマネージャーのようなパフォーマンスモニタを表示します。"
 
+msgid "Display"
+msgstr "表示"
+
 ###
 # page-base
 ##
@@ -41,8 +44,38 @@ msgstr "更新しました。"
 ###
 # addon/cpu
 ###
-msgid "CPU Usage Rate"
-msgstr "CPU使用率"
+msgid "CPU"
+msgstr "CPU"
+
+msgid "Utilization"
+msgstr "使用率"
+
+msgid "Maximum speed"
+msgstr "最大速度"
+
+msgid "Sockets"
+msgstr "ソケット"
+
+msgid "Cores"
+msgstr "コア"
+
+msgid "Logical processors"
+msgstr "論理プロセッサ数"
+
+msgid "Visualization"
+msgstr "仮想化"
+
+msgid "Enabled"
+msgstr "有効"
+
+msgid "Disabled"
+msgstr "無効"
+
+msgid "Processes"
+msgstr "プロセス数"
+
+msgid "Up time"
+msgstr "稼働時間"
 
 msgid "Can't access to '/proc/stat' ."
 msgstr "/proc/statにアクセスできません。"
@@ -50,12 +83,33 @@ msgstr "/proc/statにアクセスできません。"
 msgid "Failed to acquire CPU usage rate."
 msgstr "CPU使用率の取得に失敗しました。"
 
+msgid "Can't access to '/proc/cpuinfo' ."
+msgstr "/proc/cpuinfoにアクセスできません。"
+
+msgid "Can't access to '/proc/uptime' ."
+msgstr "/proc/uptimeにアクセスできません。"
+
+msgid "'/proc/uptime' file is an expected format."
+msgstr "/proc/uptimeが想定外のフォーマットです。"
+
+msgid "Failed to execute the 'ps' command."
+msgstr "psコマンドの実行に失敗しました。"
+
 
 ###
 # addon/memory
 ###
-msgid "Memory Usage Rate"
-msgstr "メモリ使用率"
+msgid "Memory"
+msgstr "メモリ"
+
+msgid "In use"
+msgstr "使用中"
+
+msgid "Available"
+msgstr "利用可能"
+
+msgid "Cached"
+msgstr "キャッシュ済み"
 
 msgid "Failed to execute the 'free' command."
 msgstr "freeコマンドの実行に失敗しました。"
@@ -65,14 +119,27 @@ msgstr "メモリ使用率の取得に失敗しました。"
 
 
 ###
-# addon/disk
+# addon/filesystem
 ###
-msgid "Disk Usage Rate (/)"
-msgstr "ディスク使用率(/)"
+msgid "FileSystem"
+msgstr "ファイルシステム"
+
+msgid "Mounted on"
+msgstr "マウント位置"
+
+msgid "* Information on the file system where WordPress of the following path is installed."
+msgstr "※下記のパスのWordPressがインストールされているファイルシステムの情報です。"
+
+# duplicated
+#msgid "In use"
+#msgstr "使用中"
+
+# duplicated
+#msgid "Available"
+#msgstr "利用可能"
 
 msgid "Failed to execute the 'df' command."
 msgstr "dfコマンドの実行に失敗しました。"
 
 msgid "The output of the 'df' command is an unexpected format."
 msgstr "dfコマンドの出力が想定外のフォーマットです。"
-

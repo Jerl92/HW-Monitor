@@ -1,40 +1,61 @@
 <?php
 /**
  * Memory Usage add-onn (default add-on)
+ */
+
+/**
+ * Get memory usage
  *
  * @param array $data
  *
  * @return array
  */
-function pmhm_add_mem_data( $data ) {
+function hwm_add_mem_data( $data ) {
 	$res = array(
-		'id'    => 'mem_usage',
-		'name'  => __( 'Memory Usage Rate', 'pm-hw-monitor' ),
-		'color' => '#9C27B0',
-		'rate'  => '',
-		'error' => '',
+		'id'      => 'mem_usage',
+		'name'    => __( 'Memory', 'hw-monitor' ),
+		'color'   => '#9C27B0',
+		'summary' => '',
+		'rate'    => '',
+		'desc'    => array(),
+		'error'   => array(),
+	);
+
+	$desc = array(
+		__( 'In use', 'hw-monitor' )    => '',
+		__( 'Available', 'hw-monitor' ) => '',
+		__( 'Cached', 'hw-monitor' )    => '',
 	);
 
 	exec( 'free', $output, $return_var );
 
 	if ( ! ! $return_var ) {
-		$res['error'] = __( "Failed to execute the 'free' command.", 'pm-hw-monitor' );
+		$res['error'][] = __( "Failed to execute the 'free' command.", 'hw-monitor' );
 	} else {
 		foreach ( $output as $row ) {
-			if ( preg_match( '/^Mem:\s+(?<total>\d+)\s+(?<used>\d+)\s+.*$/', $row, $m ) ) {
-				$res['rate'] = (int) ( $m['used'] / $m['total'] * 100 );
-				break;
+			if ( ! preg_match( '/^Mem:\s+(?<total>\d+)\s+(?<used>\d+)\s+(?<free>\d+)\s+(?<shared>\d+)\s+(?<bufferd>\d+)\s+(?<cached>\d+).*$/', $row, $m ) ) {
+				continue;
 			}
+
+			$res['rate']    = (int) ( $m['used'] / $m['total'] * 100 );
+			$res['summary'] = sprintf( "%.1f GB", round( $m['total'] / (1024 * 1024), 1 ) );
+
+			$desc[ __( 'In use', 'hw-monitor' ) ]    = sprintf( "%.1f GB", round( $m['used'] / (1024 * 1024), 1 ) );
+			$desc[ __( 'Available', 'hw-monitor' ) ] = sprintf( "%.1f GB", round( $m['free'] / (1024 * 1024), 1 ) );
+			$desc[ __( 'Cached', 'hw-monitor' ) ]    = sprintf( "%.1f GB", round( $m['cached'] / (1024 * 1024), 1 ) );
+
+			break;
 		}
 
 		if ( $res['rate'] === '' ) {
-			$res['error'] = __( 'Failed to acquire Memory usage rate', 'pm-hw-monitor' );
+			$res['error'][] = __( 'Failed to acquire Memory usage rate', 'hw-monitor' );
 		}
 	}
 
-	$data[] = $res;
+	$res['desc'] = $desc;
+	$data[]      = $res;
 
 	return $data;
 }
 
-add_filter( 'add_pmhm_data', 'pmhm_add_mem_data', 1 );
+add_filter( 'add_hwm_data', 'hwm_add_mem_data', 1 );

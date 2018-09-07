@@ -1,9 +1,0 @@
-#pmhm-area > div {
-    display: inline-block;
-    width: 45%;
-}
-
-#pmhm-area > div > h3,
-#pmhm-area > div > small {
-    margin-left: 30px;
-}
