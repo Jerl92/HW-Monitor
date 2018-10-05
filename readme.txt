@@ -1,6 +1,6 @@
 === HW Monitor ===
-Contributors: pressmaninc, pmyosuke
-Tags: pressman, hardware, monitor
+Contributors: pressmaninc, pmyosuke, hiroshisekiguchi, akihirokato
+Tags: pressman, hardware, cpu, memory, filesystem, disk, monitor
 Requires at least: 4.9
 Tested up to: 4.9
 Requires PHP: 5.3.29
