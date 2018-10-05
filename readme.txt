@@ -1,5 +1,5 @@
 === HW Monitor ===
-Contributors: PRESSMAN
+Contributors: pressmaninc, pmyosuke
 Tags: pressman, hardware, monitor
 Requires at least: 4.9
 Tested up to: 4.9
