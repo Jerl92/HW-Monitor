@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HW Monitor
  * Description: Displays performance monitor, such as the Microsoft Windows Task Manager on WordPress.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: PRESSMAN
  * Author URI: https://www.pressman.ne.jp/
  * Text Domain: hw-monitor
@@ -18,7 +18,7 @@
  * Class Hw_Monitor
  */
 class Hw_Monitor {
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 
 	/** @var stdClass */
 	private $view;
@@ -105,11 +105,11 @@ class Hw_Monitor {
 		} else {
 			// load script
 			wp_enqueue_script( 'd3js', plugin_dir_url( __FILE__ ) . 'admin/lib/d3/d3.min.js', array(), '5.7.0' );
-			wp_enqueue_script( 'c3js', plugin_dir_url( __FILE__ ) . 'admin/lib/c3/c3.min.js', array(), '0.6.7' );
-			wp_enqueue_script( 'hwmjs', plugin_dir_url( __FILE__ ) . 'admin/js/hwm.min.js', array(), '1.0.0' );
+			wp_enqueue_script( 'c3js', plugin_dir_url( __FILE__ ) . 'admin/lib/c3/c3.min.js', array(), '0.6.8' );
+			wp_enqueue_script( 'hwmjs', plugin_dir_url( __FILE__ ) . 'admin/js/hwm.min.js', array(), $this::VERSION );
 			// load style
-			wp_enqueue_style( 'c3css', plugin_dir_url( __FILE__ ) . 'admin/lib/c3/c3.min.css', array(), '0.6.7' );
-			wp_enqueue_style( 'hwmcss', plugin_dir_url( __FILE__ ) . 'admin/css/hwm.min.css', array(), '1.0.0' );
+			wp_enqueue_style( 'c3css', plugin_dir_url( __FILE__ ) . 'admin/lib/c3/c3.min.css', array(), '0.6.8' );
+			wp_enqueue_style( 'hwmcss', plugin_dir_url( __FILE__ ) . 'admin/css/hwm.min.css', array(), $this::VERSION );
 		}
 
 		$opts = unserialize( get_option( 'hw-monitor_options' ) );
