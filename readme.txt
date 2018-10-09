@@ -1,5 +1,5 @@
 === HW Monitor ===
-Contributors: pressmaninc, pmyosuke, hiroshisekiguchi, akihirokato
+Contributors: pressmaninc, pmyosuke, hiroshisekiguchi, akihirokato, toshiroshimizu, kenjinakamura2, takakageyama, hirokazusano
 Tags: pressman, hardware, cpu, memory, filesystem, disk, monitor
 Requires at least: 4.9
 Tested up to: 4.9
