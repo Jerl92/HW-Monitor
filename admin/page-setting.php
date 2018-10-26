@@ -10,6 +10,6 @@
         </tr>
     </table>
     <p class="submit">
-        <input type="submit" class="button button-primary" name="submit" value="<? _e( 'Update', 'hw-monitor' ); ?>"/>
+        <input type="submit" class="button button-primary" name="submit" value="<?php _e( 'Update', 'hw-monitor' ); ?>"/>
     </p>
 </form>
