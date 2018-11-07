@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HW Monitor
  * Description: Displays performance monitor, such as the Microsoft Windows Task Manager on WordPress.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: PRESSMAN
  * Author URI: https://www.pressman.ne.jp/
  * Text Domain: hw-monitor
@@ -18,7 +18,7 @@
  * Class Hw_Monitor
  */
 class Hw_Monitor {
-	const VERSION = '1.0.2';
+	const VERSION = '1.0.3';
 
 	/** @var stdClass */
 	private $view;
