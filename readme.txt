@@ -2,9 +2,9 @@
 Contributors: pressmaninc, pmyosuke, hiroshisekiguchi, akihirokato, toshiroshimizu, kenjinakamura2, takakageyama, hirokazusano
 Tags: pressman, hardware, cpu, memory, filesystem, disk, monitor
 Requires at least: 4.9
-Tested up to: 4.9
+Tested up to: 5.0
 Requires PHP: 5.3.29
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GNU GPL v2 or higher
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,9 @@ This plugin works only in Linux environment.
 
 
 == Changelog ==
+= 1.0.3 =
+* Tested on 5.0.
+
 = 1.0.2 =
 * Bugfix: php shortcode.
 
