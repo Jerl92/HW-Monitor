@@ -34,9 +34,14 @@ function hwm_add_cpu_data( $data ) {
 	);
 
 	if ( ! is_readable( '/proc/stat' ) ) {
-		$res['error'][] = __( "Can't access to '/proc/stat' .", 'hw-monitor' );
+		$res['error'][] = array(
+			'message' => __( "Can't access to '/proc/stat' .", 'hw-monitor' ),
+			'detail'  => '',
+		);
 	} else {
-		foreach ( explode( PHP_EOL, file_get_contents( '/proc/stat' ) ) as $row ) {
+		$stat = file_get_contents( '/proc/stat' );
+
+		foreach ( explode( PHP_EOL, $stat ) as $row ) {
 			if ( ! preg_match( '/^cpu\s+(?<user>\d+)\s+(?<nice>\d+)\s+(?<system>\d+)\s+(?<idle>\d+).*$/', $row, $m ) ) {
 				continue;
 			}
@@ -73,12 +78,18 @@ function hwm_add_cpu_data( $data ) {
 		}
 
 		if ( $res['rate'] === '' ) {
-			$res['error'][] = __( 'Failed to acquire CPU usage rate.', 'hw-monitor' );
+			$res['error'][] = array(
+				'message' => __( 'Failed to acquire CPU usage rate.', 'hw-monitor' ),
+				'detail'  => "<pre>{$stat}</pre>",
+			);
 		}
 	}
 
 	if ( ! is_readable( '/proc/cpuinfo' ) ) {
-		$res['error'][] = __( "Can't access to '/proc/cpuinfo' .", 'hw-monitor' );
+		$res['error'][] = array(
+			'message' => __( "Can't access to '/proc/cpuinfo' .", 'hw-monitor' ),
+			'detail'  => '',
+		);
 	} else {
 		$cpuinfo = array();
 		$i       = 0;
@@ -110,12 +121,18 @@ function hwm_add_cpu_data( $data ) {
 	}
 
 	if ( ! is_readable( '/proc/uptime' ) ) {
-		$res['error'][] = __( "Can't access to '/proc/uptime' .", 'hw-monitor' );
+		$res['error'][] = array(
+			'message' => __( "Can't access to '/proc/uptime' .", 'hw-monitor' ),
+			'detail'  => '',
+		);
 	} else {
 		$uptime = file_get_contents( '/proc/uptime' );
 
 		if ( ! preg_match( '/^(?<uptime>\d+(\.\d+)?)\s+(?<idle>\d+(\.\d+)?)/', $uptime, $m ) ) {
-			$res['error'][] = __( "'/proc/uptime' file is an expected format.", 'hw-monitor' );
+			$res['error'][] = array(
+				'message' => __( "'/proc/uptime' file is an expected format.", 'hw-monitor' ),
+				'detail'  => "<pre>{$uptime}</pre>",
+			);
 		}
 
 		$days    = (int) ( $m['uptime'] / ( 60 * 60 * 24 ) );
@@ -131,7 +148,10 @@ function hwm_add_cpu_data( $data ) {
 	exec( 'ps aux', $output, $return_var );
 
 	if ( ! ! $return_var ) {
-		$res['error'][] = __( "Failed to execute the 'ps' command.", 'hw-monitor' );
+		$res['error'][] = array(
+			'message' => __( "Failed to execute the 'ps' command.", 'hw-monitor' ),
+			'detail'  => '<pre>' . implode( PHP_EOL, $output ) . '</pre>',
+		);
 	} else {
 		$desc[ __( 'Processes', 'hw-monitor' ) ] = count( $output ) - 2;
 	}

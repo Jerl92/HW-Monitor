@@ -84,7 +84,7 @@
                 $error.empty();
 
                 for (var j in d.error) {
-                    $error.append('<div>' + d.error + '</div>');
+                    $error.append('<div>' + d.error[j].message + '</div>');
                 }
             }
         });

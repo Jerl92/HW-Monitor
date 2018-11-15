@@ -4,7 +4,7 @@ Tags: pressman, hardware, cpu, memory, filesystem, disk, monitor
 Requires at least: 4.9
 Tested up to: 5.0
 Requires PHP: 5.3.29
-Stable tag: 1.0.3
+Stable tag: 1.1.0
 License: GNU GPL v2 or higher
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,11 @@ This plugin works only in Linux environment.
 
 
 == Changelog ==
+= 1.1.0 =
+* Add add-on tab
+  * Display installed add-ons, and if an error occurred it will display its details.
+
+
 = 1.0.3 =
 * Tested on 5.0.
 
