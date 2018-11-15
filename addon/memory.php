@@ -30,7 +30,10 @@ function hwm_add_mem_data( $data ) {
 	exec( 'free', $output, $return_var );
 
 	if ( ! ! $return_var ) {
-		$res['error'][] = __( "Failed to execute the 'free' command.", 'hw-monitor' );
+		$res['error'][] = array(
+			'message' => __( "Failed to execute the 'free' command.", 'hw-monitor' ),
+			'detail'  => '<pre>' . implode( PHP_EOL, $output ) . '</pre>',
+		);
 	} else {
 		foreach ( $output as $row ) {
 			if ( ! preg_match( '/^Mem:\s+(?<total>\d+)\s+(?<used>\d+)\s+(?<free>\d+)\s+(?<shared>\d+)\s+(?<bufferd>\d+)\s+(?<cached>\d+).*$/', $row, $m ) ) {
@@ -38,17 +41,20 @@ function hwm_add_mem_data( $data ) {
 			}
 
 			$res['rate']    = (int) ( $m['used'] / $m['total'] * 100 );
-			$res['summary'] = sprintf( "%.1f GB", round( $m['total'] / (1024 * 1024), 1 ) );
+			$res['summary'] = sprintf( "%.1f GB", round( $m['total'] / ( 1024 * 1024 ), 1 ) );
 
-			$desc[ __( 'In use', 'hw-monitor' ) ]    = sprintf( "%.1f GB", round( $m['used'] / (1024 * 1024), 1 ) );
-			$desc[ __( 'Available', 'hw-monitor' ) ] = sprintf( "%.1f GB", round( $m['free'] / (1024 * 1024), 1 ) );
-			$desc[ __( 'Cached', 'hw-monitor' ) ]    = sprintf( "%.1f GB", round( $m['cached'] / (1024 * 1024), 1 ) );
+			$desc[ __( 'In use', 'hw-monitor' ) ]    = sprintf( "%.1f GB", round( $m['used'] / ( 1024 * 1024 ), 1 ) );
+			$desc[ __( 'Available', 'hw-monitor' ) ] = sprintf( "%.1f GB", round( $m['free'] / ( 1024 * 1024 ), 1 ) );
+			$desc[ __( 'Cached', 'hw-monitor' ) ]    = sprintf( "%.1f GB", round( $m['cached'] / ( 1024 * 1024 ), 1 ) );
 
 			break;
 		}
 
 		if ( $res['rate'] === '' ) {
-			$res['error'][] = __( 'Failed to acquire Memory usage rate', 'hw-monitor' );
+			$res['error'][] = array(
+				'message' => __( 'Failed to acquire Memory usage rate', 'hw-monitor' ),
+				'detail'  => '<pre>' . implode( PHP_EOL, $output ) . '</pre>',
+			);
 		}
 	}
 

@@ -13,6 +13,10 @@ $hwm_url = menu_page_url( 'hw-monitor/hw-monitor.php', 0 );
            class="nav-tab <?php echo ( $this->view->active_tab === 'setting' ) ? 'nav-tab-active' : ''; ?>">
 			<?php _e( 'Setting', 'hw-monitor' ); ?>
         </a>
+        <a href="<?php echo esc_url( add_query_arg( array( 'tab' => 'addons' ), $hwm_url ) ); ?>"
+           class="nav-tab <?php echo ( $this->view->active_tab === 'addons' ) ? 'nav-tab-active' : ''; ?>">
+            <?php _e( 'Add-ons', 'hw-monitor' ); ?>
+        </a>
     </h2>
     <div>
 		<?php
@@ -25,6 +29,9 @@ $hwm_url = menu_page_url( 'hw-monitor/hw-monitor.php', 0 );
 			default:
 				include_once( plugin_dir_path( __FILE__ ) . 'page-monitor.php' );
 				break;
+
+			case 'addons':
+				include_once( plugin_dir_path( __FILE__ ) . 'page-addons.php' );
 		endswitch;
 		?>
     </div>

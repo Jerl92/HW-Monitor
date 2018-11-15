@@ -30,7 +30,10 @@ function hwm_add_filesystem_usage_data( $data ) {
 	exec( 'df', $output, $return_var );
 
 	if ( ! ! $return_var ) {
-		$res['error'][] = __( "Failed to execute the 'df' command.", 'hw-monitor' );
+		$res['error'][] = array(
+			'message' => __( "Failed to execute the 'df' command.", 'hw-monitor' ),
+			'detail'  => '<pre>' . implode( PHP_EOL, $output ) . '</pre>',
+		);
 	} else {
 		$tmp = array();
 
@@ -47,7 +50,10 @@ function hwm_add_filesystem_usage_data( $data ) {
 		}
 
 		if ( ! $tmp ) {
-			$res['error'][] = __( "The output of the 'df' command is an unexpected format.", 'hw-monitor' );
+			$res['error'][] = array(
+				'message' => __( "The output of the 'df' command is an unexpected format.", 'hw-monitor' ),
+				'detail'  => '<pre>' . implode( PHP_EOL, $output ) . '</pre>',
+			);
 		} else {
 			$res['summary'] = $tmp['fs'];
 			$res['rate']    = $tmp['use'];
