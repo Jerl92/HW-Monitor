@@ -11,7 +11,12 @@
  * @return array
  */
 function hwm_add_cpu_data( $data ) {
-	session_start();
+	$is_addon_page = headers_sent(); // If the header has been sent it should have been called from the add-on tab.
+
+	if ( ! $is_addon_page ) {
+		session_start();
+	}
+
 	$res = array(
 		'id'      => 'cpu_usage',
 		'name'    => __( 'CPU', 'hw-monitor' ),
@@ -44,6 +49,11 @@ function hwm_add_cpu_data( $data ) {
 		foreach ( explode( PHP_EOL, $stat ) as $row ) {
 			if ( ! preg_match( '/^cpu\s+(?<user>\d+)\s+(?<nice>\d+)\s+(?<system>\d+)\s+(?<idle>\d+).*$/', $row, $m ) ) {
 				continue;
+			}
+
+			if ( $is_addon_page ) {
+				$res['rate'] = 0;
+				break;
 			}
 
 			$cur = array(

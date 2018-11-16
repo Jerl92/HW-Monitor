@@ -15,71 +15,71 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Language: ja\n"
 
-#: addon/cpu.php:17
+#: addon/cpu.php:22
 msgid "CPU"
 msgstr "CPU"
 
-#: addon/cpu.php:26 addon/cpu.php:75
+#: addon/cpu.php:31 addon/cpu.php:85
 msgid "Utilization"
 msgstr "使用率"
 
-#: addon/cpu.php:27 addon/cpu.php:108
+#: addon/cpu.php:32 addon/cpu.php:118
 msgid "Maximum speed"
 msgstr "最大速度"
 
-#: addon/cpu.php:28 addon/cpu.php:109
+#: addon/cpu.php:33 addon/cpu.php:119
 msgid "Sockets"
 msgstr "ソケット"
 
-#: addon/cpu.php:29 addon/cpu.php:120
+#: addon/cpu.php:34 addon/cpu.php:130
 msgid "Cores"
 msgstr "コア"
 
-#: addon/cpu.php:30 addon/cpu.php:110
+#: addon/cpu.php:35 addon/cpu.php:120
 msgid "Logical processors"
 msgstr "論理プロセッサ数"
 
-#: addon/cpu.php:31 addon/cpu.php:111
+#: addon/cpu.php:36 addon/cpu.php:121
 msgid "Visualization"
 msgstr "仮想化"
 
-#: addon/cpu.php:32 addon/cpu.php:156
+#: addon/cpu.php:37 addon/cpu.php:166
 msgid "Processes"
 msgstr "プロセス数"
 
-#: addon/cpu.php:33 addon/cpu.php:145
+#: addon/cpu.php:38 addon/cpu.php:155
 msgid "Up time"
 msgstr "稼働時間"
 
-#: addon/cpu.php:38
+#: addon/cpu.php:43
 msgid "Can't access to '/proc/stat' ."
 msgstr "/proc/statにアクセスできません。"
 
-#: addon/cpu.php:82
+#: addon/cpu.php:92
 msgid "Failed to acquire CPU usage rate."
 msgstr "CPU使用率の取得に失敗しました。"
 
-#: addon/cpu.php:90
+#: addon/cpu.php:100
 msgid "Can't access to '/proc/cpuinfo' ."
 msgstr "/proc/cpuinfoにアクセスできません。"
 
-#: addon/cpu.php:112
+#: addon/cpu.php:122
 msgid "Enabled"
 msgstr "有効"
 
-#: addon/cpu.php:112
+#: addon/cpu.php:122
 msgid "Disabled"
 msgstr "無効"
 
-#: addon/cpu.php:125
+#: addon/cpu.php:135
 msgid "Can't access to '/proc/uptime' ."
 msgstr "/proc/uptimeにアクセスできません。"
 
-#: addon/cpu.php:133
+#: addon/cpu.php:143
 msgid "'/proc/uptime' file is an expected format."
 msgstr "/proc/uptimeが想定外のフォーマットです。"
 
-#: addon/cpu.php:152
+#: addon/cpu.php:162
 msgid "Failed to execute the 'ps' command."
 msgstr "psコマンドの実行に失敗しました。"
 
