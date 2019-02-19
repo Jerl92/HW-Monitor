@@ -2,9 +2,9 @@
 Contributors: pressmaninc, pmyosuke, hiroshisekiguchi, akihirokato, toshiroshimizu, kenjinakamura2, takakageyama, hirokazusano, kazunao
 Tags: pressman, hardware, cpu, memory, filesystem, disk, monitor
 Requires at least: 4.9
-Tested up to: 5.0
+Tested up to: 5.1
 Requires PHP: 5.3.29
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GNU GPL v2 or higher
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,9 +28,14 @@ This plugin works only in Linux environment.
 1. Link is "Admin menu" > "Tools" > "HM Monitor"
 2. Monitor tab
 3. Setting tab
+4. Add-ons tab
 
 
 == Changelog ==
+= 1.1.2 =
+* Tested on 5.1.
+* Update libraries.
+
 = 1.1.1 =
 * Bugfix: Fix to prevent add-on tab warning.
 
