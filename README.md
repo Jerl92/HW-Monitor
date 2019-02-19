@@ -20,3 +20,4 @@ This plugin works only in Linux environment.
 ![Link is "Admin menu" > "Tools" > "HM Monitor"](./assets/screenshot-1.png)
 ![Monitor tab](./assets/screenshot-2.png)
 ![Setting tab](./assets/screenshot-3.png)
+![Add-ons tab](./assets/screenshot-4.png)
