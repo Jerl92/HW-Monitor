@@ -2,6 +2,8 @@
 
 ![Logo](./assets/icon-128x128.png)
 
+[![Build Status](https://travis-ci.org/pressmaninc/hw-monitor.svg?branch=master)](https://travis-ci.org/pressmaninc/hw-monitor)
+
 Displays performance monitor, such as the Microsoft Windows Task Manager on WordPress.
 The link is made to "Admin menu" > "Tools" > "HM Monitor".
 
