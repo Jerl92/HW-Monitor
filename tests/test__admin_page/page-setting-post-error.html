@@ -1,0 +1,29 @@
+<div class="wrap">
+	<h1>HW Monitor</h1>
+	<div id='setting-error-interval' class='error settings-error notice is-dismissible'>
+		<p>
+			<strong>データ取得間隔には1以上の整数を入力してください。
+			</strong>
+		</p>
+	</div>
+	<h2 class="nav-tab-wrapper">
+		<a href="?tab=monitor" class="nav-tab">モニター</a>
+		<a href="?tab=setting" class="nav-tab nav-tab-active">設定</a>
+		<a href="?tab=addons" class="nav-tab">アドオン</a>
+	</h2>
+	<div>
+		<form action="?tab=setting" method="post">
+			<table class="form-table">
+				<tr>
+					<th>データ取得間隔：</th>
+					<td>
+						<input type="number" name="interval" min="1" required value="99">&nbsp;秒
+					</td>
+				</tr>
+			</table>
+			<p class="submit">
+				<input type="submit" class="button button-primary" name="submit" value="更新"/>
+			</p>
+		</form>
+	</div>
+</div>

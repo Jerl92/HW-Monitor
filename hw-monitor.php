@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HW Monitor
  * Description: Displays performance monitor, such as the Microsoft Windows Task Manager on WordPress.
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: PRESSMAN
  * Author URI: https://www.pressman.ne.jp/
  * Text Domain: hw-monitor
@@ -14,13 +14,15 @@
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, v2 or higher
  */
 
+namespace Pressman;
+
 /**
  * Class Hw_Monitor
  */
 class Hw_Monitor {
-	const VERSION = '1.1.2';
+	const VERSION = '1.1.3';
 
-	/** @var stdClass */
+	/** @var \stdClass */
 	private $view;
 
 	/**
@@ -31,11 +33,11 @@ class Hw_Monitor {
 		require_once( plugin_dir_path( __FILE__ ) . 'addon/memory.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'addon/filesystem.php' );
 
-		$this->view = new stdClass();
+		$this->view = new \stdClass();
 	}
 
 	/**
-	 * Main function
+	 * Main function.
 	 */
 	public function run() {
 		register_activation_hook( __FILE__, array( $this, 'activate_plugin_options' ) );
@@ -48,6 +50,9 @@ class Hw_Monitor {
 		add_action( 'wp_ajax_hwm', array( $this, 'admin_ajax' ) );
 	}
 
+	/**
+	 * Process when activating plugin.
+	 */
 	public function activate_plugin_options() {
 		$ver = get_option( 'hw-monitor_version' );
 
@@ -72,11 +77,24 @@ class Hw_Monitor {
 		}
 	}
 
+	/**
+	 * Process when deactivating plugin.
+	 */
 	public function deactivate_plugin_options() {
 		delete_option( 'hw-monitor_version' );
 		delete_option( 'hw-monitor_options' );
 	}
 
+	############################################################################
+	# Filters                                                                  #
+	############################################################################
+	/**
+	 * Add link to this plugin field on the plugin page.
+	 *
+	 * @param $links
+	 *
+	 * @return mixed
+	 */
 	public function add_action_links( $links ) {
 		$a = '<a href="tools.php?page=hw-monitor/hw-monitor.php">' . __( 'Display', 'hw-monitor' ) . '</a>';
 		array_unshift( $links, $a );
@@ -84,17 +102,26 @@ class Hw_Monitor {
 		return $links;
 	}
 
+	############################################################################
+	# Actions                                                                  #
+	############################################################################
+	/**
+	 * Load translation file.
+	 */
 	public function load_text_domain() {
-		load_plugin_textdomain( 'hw-monitor', false, plugin_basename( plugin_dir_path( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'hw-monitor', false, basename( __DIR__ ) . '/languages' );
 	}
 
-
+	/**
+	 * Add admin menu.
+	 */
 	public function admin_menu() {
-		require_once( ABSPATH . '/wp-admin/admin.php' );
-
 		add_submenu_page( 'tools.php', 'HW Monitor', 'HW Monitor', 'edit_posts', __FILE__, array( $this, 'admin_page' ) );
 	}
 
+	/**
+	 * Draw a page.
+	 */
 	public function admin_page() {
 		$this->view->active_tab = filter_input( INPUT_GET, 'tab', FILTER_DEFAULT, array( 'options' => array( 'default' => 'monitor' ) ) );
 
@@ -122,9 +149,12 @@ class Hw_Monitor {
 
 		$this->view->interval = $opts['interval'];
 
-		include_once( plugin_dir_path( __FILE__ ) . 'admin/page-base.php' );
+		include( plugin_dir_path( __FILE__ ) . 'admin/page-base.php' );
 	}
 
+	/**
+	 * Save setting.
+	 */
 	public function admin_page_post_setting() {
 		$interval = filter_input( INPUT_POST, 'interval', FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 1 ) ) );
 
@@ -142,15 +172,15 @@ class Hw_Monitor {
 		add_settings_error( 'success', 'success', __( 'Has been updated.', 'hw-monitor' ), 'updated' );
 	}
 
+	/**
+	 * Processing of Ajax
+	 */
 	public function admin_ajax() {
 		$data = array();
 
 		$data = apply_filters( 'add_hwm_data', $data );
 
-		header( 'Content-Type: application/json' );
-		echo json_encode( $data );
-
-		die();
+		wp_send_json($data);
 	}
 }
 
