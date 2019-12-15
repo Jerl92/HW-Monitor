@@ -17,22 +17,24 @@ class hw_widget extends WP_Widget {
               <?php echo $before_widget; ?>
                   <?php if ( $title )
                         echo $before_title . $title . $after_title; ?>
-                            <span class="result"><?php echo shapeSpace_system_model(); ?></span>
-                            <span class="description">CPU Usage: </span> <span class="result">
-                            <span id="hw-cpu"><?php echo shapeSpace_system_load(); ?></span>
-                            </span>
-                            </br>
-                            <span class="description">Memory Usage:</span> <span class="result">
-                            <span id="hw-memory"><?php echo get_server_memory_usage(); ?></span>
-                            </span>
-                            </br>
-                            <span class="description">Bandwidth:</span> <span class="result">
-                                <span id="hw-bandwidth"><?php echo shapeSpace_server_bandwidth(); ?></span>
-                            </span>
-                            </br>
-                            <span class="description">Uptime:</span> <span class="result">
-                                <span id="hw-uptime"><?php echo secondsToTime(shapeSpace_server_uptime()); ?></span>
-                            </span>
+                            <div id="hw-info">
+                                <span class="result"><?php echo shapeSpace_system_model(); ?></span>
+                                <span class="description">CPU Usage: </span> <span class="result">
+                                <span id="hw-cpu"><?php echo shapeSpace_system_load(); ?></span>
+                                </span>
+                                </br>
+                                <span class="description">Memory Usage:</span> <span class="result">
+                                <span id="hw-memory"><?php echo get_server_memory_usage(); ?></span>
+                                </span>
+                                </br>
+                                <span class="description">Bandwidth:</span> <span class="result">
+                                    <span id="hw-bandwidth"><?php echo shapeSpace_server_bandwidth(); ?></span>
+                                </span>
+                                </br>
+                                <span class="description">Uptime:</span> <span class="result">
+                                    <span id="hw-uptime"><?php echo secondsToTime(shapeSpace_server_uptime()); ?></span>
+                                </span>
+                            </div>
               <?php echo $after_widget; ?>
         <?php
     }

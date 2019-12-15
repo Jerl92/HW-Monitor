@@ -1,15 +1,15 @@
-function ajax_get_cpu($)  {
+function ajax_get_hw($)  {
     $.ajax({    
         type: 'post',
-        url: get_cpu_ajax_url,
+        url: get_hw_ajax_url,
         data: {
-            'action': 'get_cpu'
+            'action': 'get_hw'
         },
         dataType: 'JSON',
         success: function(data){
-            $("#hw-cpu").empty();
-            $("#hw-cpu").html(data);
-            setTimeout(function(){ ajax_get_cpu($); }, 500);
+            $("#hw-info").empty();
+            $("#hw-info").html(data);
+            setTimeout(function(){ ajax_get_hw($); }, 500);
         },
         error: function(errorThrown){
             //error stuff here.text
@@ -18,5 +18,5 @@ function ajax_get_cpu($)  {
 }
 
   jQuery(document).ready(function($) {
-    ajax_get_cpu($);  
+    ajax_get_hw($);  
   });
