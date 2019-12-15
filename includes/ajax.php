@@ -22,10 +22,12 @@ add_action( 'wp_ajax_nopriv_get_hw', 'ajax_get_hw' );
 function ajax_get_hw($post) {
     $posts  = array();
 
+    $html[] = '<span class="result">' . shapeSpace_kernel_version() . '</span>';
+    $html[] .= '</br>';
     $html[] = '<span class="result">' . shapeSpace_system_model() . '</span>';
+    $html[] .= '</br>';
     $html[] .= '<span class="description">CPU Usage: </span> <span class="result">';
     $html[] .= '<span id="hw-cpu">' . shapeSpace_system_load() . '</span>';
-    $html[] .= '</span>';
     $html[] .= '</br>';
     $html[] .= '<span class="description">Memory Usage:</span> <span class="result">';
     $html[] .= '<span id="hw-memory">' . get_server_memory_usage() . '</span>';

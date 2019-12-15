@@ -18,7 +18,10 @@ class hw_widget extends WP_Widget {
                   <?php if ( $title )
                         echo $before_title . $title . $after_title; ?>
                             <div id="hw-info">
+                                <span class="result"><?php echo shapeSpace_kernel_version(); ?></span>
+                                </br>
                                 <span class="result"><?php echo shapeSpace_system_model(); ?></span>
+                                </br>
                                 <span class="description">CPU Usage: </span> <span class="result">
                                 <span id="hw-cpu"><?php echo shapeSpace_system_load(); ?></span>
                                 </span>
@@ -83,7 +86,6 @@ function shapeSpace_system_model() {
     $cpumodel_ = str_replace("model name", "", $cpumodel[1]);
 
     $html[] = $cpumodel_;
-    $html[] .= '</br>';
 
     return implode( $html );
 }
@@ -103,11 +105,9 @@ function shapeSpace_system_load() {
     $lscpu = array_merge($lscpu);
     $speed = str_replace("cpu", "", $lscpu[2]);
 
-    $cpu_usage = shell_exec("grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}'");
-
     $temp = file_get_contents("/sys/class/thermal/thermal_zone0/temp");
 
-    $html[] = $cpu_usage;
+    $html[] = shapeSpace_system_rate();
     $html[] .= '%';
     $html[] .= ' - ';
     $html[] .= $speed;
@@ -117,6 +117,50 @@ function shapeSpace_system_load() {
     $html[] .= '°C';
 
     return implode( $html );
+}
+
+function shapeSpace_system_rate() {
+    $res = array(
+		'rate'    => '',
+		'error'   => array(),
+	);
+
+	if ( ! is_readable( '/proc/stat' ) ) {
+		$res['error'][] = array(
+			'message' => __( "Can't access to '/proc/stat' .", 'hw-monitor' ),
+			'detail'  => '',
+		);
+	} else {
+        $stat = file_get_contents( '/proc/stat' );
+
+        foreach ( explode( PHP_EOL, $stat ) as $row ) {
+            if ( ! preg_match( '/^cpu\s+(?<user>\d+)\s+(?<nice>\d+)\s+(?<system>\d+)\s+(?<idle>\d+).*$/', $row, $m ) ) {
+                continue;
+            }
+
+            $cur = array(
+                'user'   => $m['user'],
+                'nice'   => $m['nice'],
+                'system' => $m['system'],
+                'idle'   => $m['idle'],
+            );
+
+            $old                   = $_SESSION['cpu_usage'];
+            $_SESSION['cpu_usage'] = $cur;
+
+            $diff = array(
+                'user'   => $cur['user'] - $old['user'],
+                'nice'   => $cur['nice'] - $old['nice'],
+                'system' => $cur['system'] - $old['system'],
+                'idle'   => $cur['idle'] - $old['idle'],
+            );
+			$time                                      = $diff['user'] + $diff['nice'] + $diff['system'];
+			$res['rate']                               = (int) ( $time / ( $time + $diff['idle'] ) * 100 );
+
+			break;
+        }
+        return $res['rate'];
+    }
 }
 
 function shapeSpace_kernel_version() {	

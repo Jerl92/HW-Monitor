@@ -18,5 +18,8 @@ function ajax_get_hw($)  {
 }
 
   jQuery(document).ready(function($) {
-    ajax_get_hw($);  
+    hw_info = document.getElementById("hw-info");
+    if (hw_info) {
+        ajax_get_hw($);  
+    }
   });
