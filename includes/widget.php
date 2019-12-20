@@ -18,7 +18,12 @@ class hw_widget extends WP_Widget {
                   <?php if ( $title )
                         echo $before_title . $title . $after_title; ?>
                             <div id="hw-info">
-                                <span class="result"><?php echo shapeSpace_kernel_version(); ?></span>
+                                <span class="description">WordPress </span>
+                                <span class="result"><?php echo get_bloginfo( 'version' ); ?></span>
+                                </br>
+                                <span class="description">PHP </span>
+                                <span class="result"><?php echo phpversion(); ?></span>
+                                <!-- <span class="result"><?php echo shapeSpace_kernel_version(); ?></span> -->
                                 </br>
                                 <span class="result"><?php echo shapeSpace_system_model(); ?></span>
                                 </br>
@@ -66,14 +71,60 @@ add_action('widgets_init', create_function('', 'return register_widget("hw_widge
 
 function get_server_memory_usage(){
 
-    $memory = shell_exec("cat /proc/meminfo | grep 'Active:'");
-    $memory_val = explode(" ", $memory);
-    $memory_val = array_filter($memory_val);
-    $memory_val = array_merge($memory_val);
-    $memory_usage[] = $memory_val[1];
-    $memory_usage[] .= '  Kb';
+	$res = array(
+		'id'      => 'mem_usage',
+		'name'    => __( 'Memory', 'hw-monitor' ),
+		'color'   => '#9C27B0',
+		'summary' => '',
+		'rate'    => '',
+		'desc'    => array(),
+		'error'   => array(),
+	);
+
+	$desc = array(
+		__( 'In use', 'hw-monitor' )    => '',
+		__( 'Available', 'hw-monitor' ) => '',
+		__( 'Cached', 'hw-monitor' )    => '',
+	);
+
+	exec( 'free', $output, $return_var );
+
+	if ( ! ! $return_var ) {
+		$res['error'][] = array(
+			'message' => __( "Failed to execute the 'free' command.", 'hw-monitor' ),
+			'detail'  => '<pre>' . implode( PHP_EOL, $output ) . '</pre>',
+		);
+	} else {
+		foreach ( $output as $row ) {
+			if ( ! preg_match( '/^Mem:\s+(?<total>\d+)\s+(?<used>\d+)\s+(?<free>\d+)\s+(?<shared>\d+)\s+(?<bufferd>\d+)\s+(?<cached>\d+).*$/', $row, $m ) ) {
+				continue;
+			}
+
+			$res['rate']    = (int) ( $m['used'] / $m['total'] * 100 );
+			$res['summary'] = sprintf( "%.1f GB", round( $m['total'] / ( 1024 * 1024 ), 1 ) );
+
+			$desc[ __( 'In use', 'hw-monitor' ) ]    = sprintf( "%.1f GB", round( $m['used'] / ( 1024 * 1024 ), 1 ) );
+			$desc[ __( 'Available', 'hw-monitor' ) ] = sprintf( "%.1f GB", round( $m['free'] / ( 1024 * 1024 ), 1 ) );
+			$desc[ __( 'Cached', 'hw-monitor' ) ]    = sprintf( "%.1f GB", round( $m['cached'] / ( 1024 * 1024 ), 1 ) );
+
+			break;
+		}
+
+		if ( $res['rate'] === '' ) {
+			$res['error'][] = array(
+				'message' => __( 'Failed to acquire Memory usage rate', 'hw-monitor' ),
+				'detail'  => '<pre>' . implode( PHP_EOL, $output ) . '</pre>',
+			);
+		}
+	}
+
+	$res['desc'] = $desc;
+    $data[]      = $res;
     
-    return implode($memory_usage);
+    $html[] = round( $m['used'] / ( 1024 * 1024 ), 4 );
+    $html[] .= 'Gb';
+
+    return implode( $html );
 }
 
 function shapeSpace_system_model() {
@@ -107,7 +158,7 @@ function shapeSpace_system_load() {
 
     $temp = file_get_contents("/sys/class/thermal/thermal_zone0/temp");
 
-    $html[] = shapeSpace_system_rate();
+    $html[] = shapeSpace_system_rate(); 
     $html[] .= '%';
     $html[] .= ' - ';
     $html[] .= $speed;
@@ -120,9 +171,11 @@ function shapeSpace_system_load() {
 }
 
 function shapeSpace_system_rate() {
+    session_start();
     $res = array(
+        'id'      => 'cpu_usage',
 		'rate'    => '',
-		'error'   => array(),
+		'error'   => array()
 	);
 
 	if ( ! is_readable( '/proc/stat' ) ) {
@@ -144,6 +197,14 @@ function shapeSpace_system_rate() {
                 'system' => $m['system'],
                 'idle'   => $m['idle'],
             );
+
+            
+			if ( ! isset( $_SESSION['cpu_usage'] ) ) {
+				$_SESSION['cpu_usage'] = $cur;
+				$res['rate']           = 0;
+
+				break;
+			}
 
             $old                   = $_SESSION['cpu_usage'];
             $_SESSION['cpu_usage'] = $cur;
