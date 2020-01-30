@@ -70,7 +70,7 @@ class hw_widget extends WP_Widget {
 add_action('widgets_init', create_function('', 'return register_widget("hw_widget");'));
 
 function get_server_memory_usage(){
-
+    session_start();
 	$res = array(
 		'id'      => 'mem_usage',
 		'name'    => __( 'Memory', 'hw-monitor' ),
@@ -121,7 +121,7 @@ function get_server_memory_usage(){
 	$res['desc'] = $desc;
     $data[]      = $res;
     
-    $html[] = round( $m['used'] / ( 1024 * 1024 ), 4 );
+    $html[] = round( $m['used'] / ( 1024 * 1024 ), 2 );
     $html[] .= 'Gb';
 
     return implode( $html );
@@ -156,7 +156,8 @@ function shapeSpace_system_load() {
     $lscpu = array_merge($lscpu);
     $speed = str_replace("cpu", "", $lscpu[2]);
 
-    $temp = file_get_contents("/sys/class/thermal/thermal_zone0/temp");
+    $temp_exec = shell_exec("sensors | grep 'Core 0:'");
+    $temp = explode(" ", $temp_exec);
 
     $html[] = shapeSpace_system_rate(); 
     $html[] .= '%';
@@ -164,7 +165,7 @@ function shapeSpace_system_load() {
     $html[] .= $speed;
     $html[] .= ' Mhz';
     $html[] .= ' - ';
-    $html[] .= ($temp / 1000);
+    $html[] .= $temp[8];
     $html[] .= '°C';
 
     return implode( $html );
@@ -249,31 +250,12 @@ function shapeSpace_server_bandwidth() {
     
     $rx[] = @file_get_contents("/sys/class/net/$int/statistics/rx_bytes");
     $tx[] = @file_get_contents("/sys/class/net/$int/statistics/tx_bytes");
-    sleep(1);
+    sleep(1.25);
     $rx[] = @file_get_contents("/sys/class/net/$int/statistics/rx_bytes");
     $tx[] = @file_get_contents("/sys/class/net/$int/statistics/tx_bytes");
     
     $tbps = $tx[1] - $tx[0];
     $rbps = $rx[1] - $rx[0];
-    
-    $round_rx=round($rbps/1024, 2);
-    $round_tx=round($tbps/1024, 2);
-    
-    $time=date("U")."000";
-    $_SESSION['rx'][] = "[$time, $round_rx]";
-    $_SESSION['tx'][] = "[$time, $round_tx]";
-    $data['label'] = $int;
-    $data['data'] = $_SESSION['rx'];
-    # to make sure that the graph shows only the
-    # last minute (saves some bandwitch to)
-    if (count($_SESSION['rx'])>60)
-    {
-        $x = min(array_keys($_SESSION['rx']));
-        unset($_SESSION['rx'][$x]);
-    }
-    
-    # json_encode didnt work, if you found a workarround pls write me
-    # echo json_encode($data, JSON_FORCE_OBJECT);
 
     $html[] = 'Download: ';
     $html[] .= round($rbps/1024, 2);

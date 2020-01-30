@@ -35,8 +35,8 @@ function ajax_get_hw($post) {
     $html[] .= '<span class="description">CPU Usage: </span> <span class="result">';
     $html[] .= '<span id="hw-cpu">' . shapeSpace_system_load() . '</span>';
     $html[] .= '</br>';
-    // $html[] .= '<span class="description">Memory Usage:</span> <span class="result">';
-    // $html[] .= '<span id="hw-memory">' . get_server_memory_usage() . '</span>';
+    $html[] .= '<span class="description">Memory Usage:</span> <span class="result">';
+    $html[] .= '<span id="hw-memory">' . get_server_memory_usage() . '</span>';
     $html[] .= '</span>';
     $html[] .= '</br>';
     $html[] .= '<span class="description">Bandwidth:</span> <span class="result">';

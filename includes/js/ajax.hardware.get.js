@@ -8,8 +8,8 @@ function ajax_get_hw($)  {
         dataType: 'JSON',
         success: function(data){
             $("#hw-info").empty();
+            setTimeout(function(){ ajax_get_hw($); }, 1250);
             $("#hw-info").html(data);
-            setTimeout(function(){ ajax_get_hw($); }, 500);
         },
         error: function(errorThrown){
             //error stuff here.text
