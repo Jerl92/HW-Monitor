@@ -40,7 +40,7 @@ class hw_widget extends WP_Widget {
                                 </span>
                                 </br>
                                 <span class="description">Uptime:</span> <span class="result">
-                                    <span id="hw-uptime"><?php echo secondsToTime(shapeSpace_server_uptime()); ?></span>
+                                    <span id="hw-uptime"><?php echo Uptime(); ?></span>
                                 </span>
                             </div>
               <?php echo $after_widget; ?>
@@ -128,7 +128,7 @@ function get_server_memory_usage(){
 }
 
 function shapeSpace_system_model() {
-    
+    session_start();
     $lscpu_model = shell_exec("cat /proc/cpuinfo | grep 'model name'");
     $lscpu_model = (string)trim($lscpu_model);
     $cpumodel = explode(":", $lscpu_model);
@@ -142,13 +142,14 @@ function shapeSpace_system_model() {
 }
 
 function systemLoadInPercent($coreCount = 4,$interval = 1){
+    session_start();
     $rs = sys_getloadavg();
     $load  = $rs[0];
     return round(($load * 100),2);
 }
 
 function shapeSpace_system_load() {
-    
+    session_start();
     $lscpu_mhz = shell_exec("cat /proc/cpuinfo | grep 'cpu MHz'");
     $lscpu_mhz = (string)trim($lscpu_mhz);
     $lscpu = explode(" ", $lscpu_mhz);
@@ -232,27 +233,38 @@ function shapeSpace_kernel_version() {
 	
 }
 
-function shapeSpace_server_uptime() {	
-	$uptime = floor(preg_replace ('/\.[0-9]+/', '', file_get_contents('/proc/uptime')));
-	return $uptime;	
-}
+function Uptime() {
+    $str   = file_get_contents('/proc/uptime');
+    $num   = floatval($str);
+    $secs  = $num % 60;
+    $num   = (int)($num / 60);
+    $mins  = $num % 60;
+    $num   = (int)($num / 60);
+    $hours = $num % 24;
+    $num   = (int)($num / 24);
+    $days  = $num;
 
-function secondsToTime($seconds) {
-    $dtF = new \DateTime('@0');
-    $dtT = new \DateTime("@$seconds");
-    return $dtF->diff($dtT)->format('%a days, %h hours, %i minutes and %s seconds');
+    $html[] = $days;
+    $html[] .= ' days, ';
+    $html[] .= $hours;
+    $html[] .= ' hours, ';
+    $html[] .= $mins;
+    $html[] .= ' minutes and ';
+    $html[] .= $secs;
+    $html[] .= ' seconds';
+
+    return implode($html);
 }
 
 function shapeSpace_server_bandwidth() {	
 
     $int="enp0s25";
-    session_start();
     
-    $rx[] = @file_get_contents("/sys/class/net/$int/statistics/rx_bytes");
-    $tx[] = @file_get_contents("/sys/class/net/$int/statistics/tx_bytes");
-    sleep(1.25);
-    $rx[] = @file_get_contents("/sys/class/net/$int/statistics/rx_bytes");
-    $tx[] = @file_get_contents("/sys/class/net/$int/statistics/tx_bytes");
+    $rx[] = file_get_contents("/sys/class/net/$int/statistics/rx_bytes");
+    $tx[] = file_get_contents("/sys/class/net/$int/statistics/tx_bytes");
+    sleep(1);
+    $rx[] = file_get_contents("/sys/class/net/$int/statistics/rx_bytes");
+    $tx[] = file_get_contents("/sys/class/net/$int/statistics/tx_bytes");
     
     $tbps = $tx[1] - $tx[0];
     $rbps = $rx[1] - $rx[0];

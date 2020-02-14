@@ -44,7 +44,7 @@ function ajax_get_hw($post) {
     $html[] .= '</span>';
     $html[] .= '</br>';
     $html[] .= '<span class="description">Uptime:</span> <span class="result">';
-    $html[] .= '<span id="hw-uptime">' . secondsToTime(shapeSpace_server_uptime()) . '</span>';
+    $html[] .= '<span id="hw-uptime">' . Uptime() . '</span>';
     $html[] .= '</span>';
 
     return wp_send_json (  implode( $html ) );

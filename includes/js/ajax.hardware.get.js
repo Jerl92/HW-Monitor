@@ -8,7 +8,7 @@ function ajax_get_hw($)  {
         dataType: 'JSON',
         success: function(data){
             $("#hw-info").empty();
-            setTimeout(function(){ ajax_get_hw($); }, 1250);
+            setTimeout(function(){ ajax_get_hw($); }, 1000);
             $("#hw-info").html(data);
         },
         error: function(errorThrown){
