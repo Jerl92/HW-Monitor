@@ -1,25 +1,25 @@
-function ajax_get_hw($)  {
-    $.ajax({    
+function ajax_get_hw($) {
+    $.ajax({
         type: 'post',
         url: get_hw_ajax_url,
         data: {
             'action': 'get_hw'
         },
         dataType: 'JSON',
-        success: function(data){
+        success: function(data) {
             $("#hw-info").empty();
-            setTimeout(function(){ ajax_get_hw($); }, 1000);
             $("#hw-info").html(data);
+            setTimeout(function() { ajax_get_hw($); }, 2500);
         },
-        error: function(errorThrown){
+        error: function(errorThrown) {
             //error stuff here.text
         }
     });
 }
 
-  jQuery(document).ready(function($) {
+jQuery(document).ready(function($) {
     hw_info = document.getElementById("hw-info");
     if (hw_info) {
-        ajax_get_hw($);  
+        ajax_get_hw($);
     }
-  });
+});

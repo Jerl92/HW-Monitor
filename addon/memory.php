@@ -19,6 +19,7 @@ function hwm_add_mem_data( $data ) {
 		'rate'    => '',
 		'desc'    => array(),
 		'error'   => array(),
+		'max'     => 100,
 	);
 
 	$desc = array(

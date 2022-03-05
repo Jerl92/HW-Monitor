@@ -19,6 +19,7 @@ function hwm_add_filesystem_usage_data( $data ) {
 		'rate'    => '',
 		'desc'    => array(),
 		'error'   => array(),
+		'max'     => 100,
 	);
 
 	$desc = array(
@@ -72,4 +73,4 @@ function hwm_add_filesystem_usage_data( $data ) {
 	return $data;
 }
 
-add_filter( 'add_hwm_data', 'hwm_add_filesystem_usage_data', 2 );
+add_filter( 'add_hwm_data', 'hwm_add_filesystem_usage_data', 5 );

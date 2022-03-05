@@ -32,8 +32,11 @@ class Hw_Monitor {
 		require_once( plugin_dir_path( __FILE__ ) . 'addon/cpu.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'addon/memory.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'addon/filesystem.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'addon/bandwidth.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'addon/upload.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/ajax.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/widget.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/shortcode.php' );
 
 		$this->view = new \stdClass();
 	}
