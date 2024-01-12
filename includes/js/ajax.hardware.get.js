@@ -9,7 +9,7 @@ function ajax_get_hw($) {
         success: function(data) {
             $("#hw-info").empty();
             $("#hw-info").html(data);
-            setTimeout(function() { ajax_get_hw($); }, 2500);
+            setTimeout(function() { ajax_get_hw($); }, 5000);
         },
         error: function(errorThrown) {
             //error stuff here.text

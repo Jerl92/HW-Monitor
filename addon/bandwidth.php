@@ -25,9 +25,9 @@ function hwm_add_download_data($data) {
 		__( 'Download', 'hw-monitor' )    => ''
 	);
 
-    $rx[] = file_get_contents("/sys/class/net/$int/statistics/rx_bytes");
+    $rx[0] = file_get_contents("/sys/class/net/$int/statistics/rx_bytes");
     sleep(1);
-    $rx[] = file_get_contents("/sys/class/net/$int/statistics/rx_bytes");
+    $rx[1] = file_get_contents("/sys/class/net/$int/statistics/rx_bytes");
     
     $rbps = $rx[1] - $rx[0];
 

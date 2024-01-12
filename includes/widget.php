@@ -27,10 +27,8 @@ class hw_widget extends WP_Widget {
                                 <span class="description" style="font-weight: 600;">WordPress <?php echo get_bloginfo( 'version' ); ?> - PHP <?php echo phpversion(); ?> - <?php echo $_SERVER['SERVER_SOFTWARE'] ?></span>
                                 </br>
 
-                                <span class="result" style="font-weight: 300;"><?php echo system_model(); ?> - <?php echo system_distri(); ?></span>
+                                <span class="result" style="font-weight: 300;"><?php echo system_model(); ?> - <?php echo system_distri(); ?> - <?php echo shapeSpace_kernel_version(); ?></span>
                                 </br>
-
-                                <!-- <span class="result"><?php echo shapeSpace_kernel_version(); ?></span> -->
 
                                 <span class="result"><?php echo shapeSpace_system_model(); ?></span>
                                 </br>
@@ -176,14 +174,14 @@ function shapeSpace_number_processes() {
 }
 
 function system_model() {
-    $lscpu_mhz = shell_exec("inxi -Fx | grep 'Machine'");
+    $lscpu_mhz = shell_exec("inxi -Fx | grep 'Mobo'");
     $lscpu = explode(" ", $lscpu_mhz);
 
-    $html[] = $lscpu[6];
+    $html[] = $lscpu[5];
+    $html[] .= ' ';
+    $html[] .= $lscpu[7];
     $html[] .= ' ';
     $html[] .= $lscpu[8];
-    $html[] .= ' ';
-    $html[] .= $lscpu[9];
 
     return implode( $html );
 }
@@ -192,9 +190,11 @@ function system_distri() {
     $lscpu_mhz = shell_exec("inxi -Fx | grep 'Distro'");
     $lscpu = explode(" ", $lscpu_mhz);
 
-    $html[] = $lscpu[14];
+    $html[] = $lscpu[5];
     $html[] .= ' ';
-    $html[] .= $lscpu[15];
+    $html[] .= $lscpu[6];
+    $html[] .= ' ';
+    $html[] .= $lscpu[7];
 
     return implode( $html );
 }
@@ -263,9 +263,8 @@ function shapeSpace_system_rate() {
 }
 
 function shapeSpace_kernel_version() {	
-	$kernel = explode(',', file_get_contents('/proc/version'));
-    $html[] = $kernel[8];
-	return implode($kernel);	
+	$kernel = shell_exec("uname -r");
+	return $kernel;	
 }
 
 function Uptime() {

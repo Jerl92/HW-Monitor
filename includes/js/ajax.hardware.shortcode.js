@@ -10,7 +10,7 @@ function ajax_get_hw_shortcode($)  {
             $("#hw-system-load").append(data[0]);
             $("#hw-system-load-ram").append(data[1]);
             $("#hw-system-load-bandwitch").append(data[2]);
-            setTimeout(function(){ ajax_get_hw_shortcode($); }, 1000);
+            setTimeout(function(){ ajax_get_hw_shortcode($); }, 5000);
         },
         error: function(errorThrown){
             //error stuff here.text

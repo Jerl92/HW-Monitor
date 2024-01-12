@@ -25,9 +25,9 @@ function hwm_add_upload_data($data) {
 		__( 'Upload', 'hw-monitor' ) => ''
 	);
 
-    $tx[] = file_get_contents("/sys/class/net/$int/statistics/tx_bytes");
+    $tx[0] = file_get_contents("/sys/class/net/$int/statistics/tx_bytes");
     sleep(1);
-    $tx[] = file_get_contents("/sys/class/net/$int/statistics/tx_bytes");
+    $tx[1] = file_get_contents("/sys/class/net/$int/statistics/tx_bytes");
     
     $tbps = $tx[1] - $tx[0];
 

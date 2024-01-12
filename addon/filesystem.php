@@ -39,7 +39,7 @@ function hwm_add_filesystem_usage_data( $data ) {
 		$tmp = array();
 
 		foreach ( $output as $row ) {
-			if ( ! preg_match( '/^(?<fs>\S+)\s+(?<blocks>\d+)\s+(?<used>\d+)\s+(?<available>\d+)\s+(?<use>\d+)%\s+(?<mounted>\S+).*$/', $row, $m ) ) {
+			if ( ! preg_match( '/^(?<filesystem>\S+)\s+(?<blocks>\d+)\s+(?<used>\d+)\s+(?<available>\d+)\s+(?<use>\d+)%\s+(?<mounted>\S+).*$/', $row, $m ) ) {
 				continue;
 			} elseif ( strpos( ABSPATH, $m['mounted'] ) !== 0 ) {
 				continue;
@@ -56,7 +56,7 @@ function hwm_add_filesystem_usage_data( $data ) {
 				'detail'  => '<pre>' . implode( PHP_EOL, $output ) . '</pre>',
 			);
 		} else {
-			$res['summary'] = $tmp['fs'];
+			$res['summary'] = $tmp['filesystem'];
 			$res['rate']    = $tmp['use'];
 
 			$desc[ __( '* Information on the file system where WordPress of the following path is installed.', 'hw-monitor' ) ] = ABSPATH;
