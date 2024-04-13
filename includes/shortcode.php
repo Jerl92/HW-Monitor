@@ -15,7 +15,7 @@ function process_post() {
 function hw_shortcode() {
 
     ?>
-    <?php $sec = 5; ?>
+    <?php $sec = 1; ?>
     <input type="hidden" id="interval" value="5">
     <input type="hidden" id="sec" value="<?php echo sprintf( __( '%% Utilization, %s seconds', 'hw-monitor' ), $sec ); ?>">
     <div id="hwm-area">Loading...</div>

@@ -7,10 +7,13 @@ function ajax_get_hw_shortcode($)  {
         },
         dataType: 'JSON',
         success: function(data){
-            $("#hw-system-load").append(data[0]);
-            $("#hw-system-load-ram").append(data[1]);
-            $("#hw-system-load-bandwitch").append(data[2]);
-            setTimeout(function(){ ajax_get_hw_shortcode($); }, 5000);
+            hw_info = document.getElementById("hw-wraper");
+            if (hw_info) {
+                $("#hw-system-load").append(data[0]);
+                $("#hw-system-load-ram").append(data[1]);
+                $("#hw-system-load-bandwitch").append(data[2]);
+                setTimeout(function(){ ajax_get_hw_shortcode($); }, 1000);
+            }
         },
         error: function(errorThrown){
             //error stuff here.text

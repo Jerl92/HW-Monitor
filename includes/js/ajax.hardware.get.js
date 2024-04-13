@@ -7,9 +7,12 @@ function ajax_get_hw($) {
         },
         dataType: 'JSON',
         success: function(data) {
-            $("#hw-info").empty();
-            $("#hw-info").html(data);
-            setTimeout(function() { ajax_get_hw($); }, 5000);
+            hw_info = document.getElementById("hw-info");
+            if (hw_info) {
+                $("#hw-info").empty();
+                $("#hw-info").html(data);
+                setTimeout(function() { ajax_get_hw($); }, 1000);
+            }
         },
         error: function(errorThrown) {
             //error stuff here.text
