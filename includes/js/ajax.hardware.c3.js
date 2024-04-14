@@ -6,6 +6,7 @@
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, v2 or higher
  */
     var graphs = {};
+    var interval_hw;
 
     function getData() {
         if (document.hidden) {
@@ -109,7 +110,6 @@
     }
 
     $(function() {
-        var interval_hw;
         hw_info = document.getElementById("hwm-area");
         if (hw_info) {
             hw_info.innerHTML = '';
